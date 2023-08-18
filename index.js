@@ -1,6 +1,7 @@
 /**
  * @format
  */
+*this is fist comment
 
 import {AppRegistry} from 'react-native';
 import App from './App';

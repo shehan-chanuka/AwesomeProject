@@ -50,6 +50,7 @@ react {
     // hermesFlags = ["-O", "-output-source-map"]
 }
 
+
 /**
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
  */
@@ -81,6 +82,9 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+
+    
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -103,14 +107,27 @@ android {
     }
 }
 
+
+plugins {
+  id("com.android.application")
+
+  // Add the Google services Gradle plugin
+  id("com.google.gms.google-services")
+
+  ...
+}
+
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.squareup.okhttp3', module:'okhttp'
     }
+
 
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
     if (hermesEnabled.toBoolean()) {
@@ -118,6 +135,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
